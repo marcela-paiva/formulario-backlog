@@ -1,122 +1,400 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Atendimento</title>
+    <title>TAP - BACKLOG</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2, h3 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
-    <form action="#" method="post">
+
+<h2>TAP - BACKLOG</h2>
+
+<form id="tapBacklogForm">
+    <!-- SEÇÃO 1: INFORMAÇÕES CONTRATO -->
+    <section id="section1">
+        <h3>INFORMAÇÕES CONTRATO</h3>
+        
         <label for="resumo">Resumo:</label>
-        <textarea id="resumo" name="resumo" rows="4" cols="50"></textarea><br><br>
+        <textarea id="resumo" name="resumo"></textarea>
 
         <label for="atendimento">Atendimento:</label>
-        <select id="atendimento" name="atendimento">
-            <option value="novo_circuito">Novo Circuito</option>
-            <option value="mudanca_endereco">Mudança de endereço</option>
-            <option value="migracao_servico">Migração de Serviço</option>
-            <option value="upgrade">Upgrade</option>
-            <option value="downgrade">Downgrade</option>
-            <option value="cancelamento">Cancelamento</option>
-            <option value="evento">Evento</option>
-            <option value="troca_titularidade">Troca de titularidade</option>
-            <option value="migracao_north">Migração de circuito para North</option>
-            <option value="permuta">Permuta</option>
-            <option value="redundancia_fisica">Redundância física</option>
-            <option value="alteracao_logica">Alteração de configuração lógica</option>
-        </select><br><br>
+        <select id="atendimento" name="atendimento" onchange="toggleSection2()">
+            <option value="Novo Circuito">Novo Circuito</option>
+            <option value="Mudança de endereço">Mudança de endereço</option>
+            <option value="Migração de Serviço">Migração de Serviço</option>
+            <option value="Upgrade">Upgrade</option>
+            <option value="Downgrade">Downgrade</option>
+            <option value="Cancelamento">Cancelamento</option>
+            <option value="Evento">Evento</option>
+            <option value="Troca de titularidade">Troca de titularidade</option>
+            <option value="Migração de circuito para North">Migração de circuito para North</option>
+            <option value="Permuta">Permuta</option>
+            <option value="Redundância física">Redundância física</option>
+            <option value="Alteração de configuração lógica">Alteração de configuração lógica</option>
+        </select>
 
-        <label for="num_contrato">Nº contrato Sankhya:</label>
-        <input type="text" id="num_contrato" name="num_contrato"><br><br>
+        <label for="numeroContrato">Nº contrato Sankhya:</label>
+        <input type="text" id="numeroContrato" name="numeroContrato">
 
-        <label for="servico_velocidade">Serviço + Velocidade:</label>
-        <input type="text" id="servico_velocidade" name="servico_velocidade"><br><br>
+        <label for="servicoVelocidade">Serviço + Velocidade:</label>
+        <input type="text" id="servicoVelocidade" name="servicoVelocidade">
 
-        <label for="categoria_cliente">Categoria do cliente:</label>
-        <select id="categoria_cliente" name="categoria_cliente">
-            <option value="b2b">B2B</option>
-            <option value="gov">GOV</option>
-            <option value="isp">ISP</option>
-            <option value="operadora">OPERADORA</option>
-        </select><br><br>
+        <label for="categoriaCliente">Categoria do cliente:</label>
+        <select id="categoriaCliente" name="categoriaCliente">
+            <option value="B2B">B2B</option>
+            <option value="GOV">GOV</option>
+            <option value="ISP">ISP</option>
+            <option value="OPERADORA">OPERADORA</option>
+        </select>
 
-        <label for="valor_mensal">Valor mensal (R$):</label>
-        <input type="text" id="valor_mensal" name="valor_mensal" pattern="^\d+(\,\d{1,2})?$" placeholder="0,00"><br><br>
+        <label for="valorMensal">Valor mensal (R$):</label>
+        <input type="text" id="valorMensal" name="valorMensal" placeholder="0,00">
 
-        <label for="materiais_comodato">Materiais em comodato:</label>
-        <input type="text" id="materiais_comodato" name="materiais_comodato"><br><br>
+        <label for="prazoContrato">Prazo de contrato (meses):</label>
+        <input type="number" id="prazoContrato" name="prazoContrato">
+
+        <label for="materiaisComodato">Materiais em comodato:</label>
+        <textarea id="materiaisComodato" name="materiaisComodato"></textarea>
 
         <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea><br><br>
+        <textarea id="descricao" name="descricao"></textarea>
 
-        <label for="data_cadastro">Data cadastro:</label>
-        <input type="date" id="data_cadastro" name="data_cadastro"><br><br>
+        <label for="dataCadastro">Data cadastro:</label>
+        <input type="date" id="dataCadastro" name="dataCadastro">
 
-        <label for="data_limite">Data limite:</label>
-        <input type="date" id="data_limite" name="data_limite"><br><br>
+        <label for="dataLimite">Data limite:</label>
+        <input type="date" id="dataLimite" name="dataLimite">
 
-        <label for="rep_comercial">Rep. Comercial:</label>
-        <select id="rep_comercial" name="rep_comercial">
-            <option value="bruno">BRUNO</option>
-            <option value="juliana">JULIANA</option>
-            <option value="larah">LARAH</option>
-            <option value="maria_cecilia">MARIA CECILIA</option>
-            <option value="marina">MARINA</option>
-            <option value="paulo_braick">PAULO BRAICK</option>
-            <option value="rafael_fias">RAFAEL FIAS</option>
-            <option value="sandra">SANDRA</option>
-            <option value="thomaz">THOMAZ</option>
-            <option value="wendell">WENDELL</option>
-        </select><br><br>
+        <label for="repComercial">Rep. Comercial:</label>
+        <select id="repComercial" name="repComercial">
+            <option value="BRUNO">BRUNO</option>
+            <option value="JULIANA">JULIANA</option>
+            <option value="LARAH">LARAH</option>
+            <option value="MARIA CECILIA">MARIA CECILIA</option>
+            <option value="MARINA">MARINA</option>
+            <option value="PAULO BRAICK">PAULO BRAICK</option>
+            <option value="RAFAEL FIAS">RAFAEL FIAS</option>
+            <option value="SANDRA">SANDRA</option>
+            <option value="THOMAZ">THOMAZ</option>
+            <option value="WENDELL">WENDELL</option>
+        </select>
 
-        <label for="abordagem_a">Abordagem (Ponta A):</label>
-        <select id="abordagem_a" name="abordagem_a">
-            <option value="cliente">LANÇAMENTO FEITO PELO CLIENTE</option>
-            <option value="empresa">LANÇAMENTO FEITO PELA EMPRESA</option>
-        </select><br><br>
+        <label for="abordagemA">Abordagem (Ponta A):</label>
+        <select id="abordagemA" name="abordagemA">
+            <option value="LANÇAMENTO FEITO PELO CLIENTE">LANÇAMENTO FEITO PELO CLIENTE</option>
+            <option value="LANÇAMENTO FEITO PELA EMPRESA">LANÇAMENTO FEITO PELA EMPRESA</option>
+        </select>
 
-        <label for="pop_a">POP Ponta A:</label>
-        <input type="text" id="pop_a" name="pop_a"><br><br>
+        <label for="popPontaA">POP Ponta A:</label>
+        <input type="text" id="popPontaA" name="popPontaA">
 
-        <label for="endereco_a">Endereço Ponta A:</label>
-        <input type="text" id="endereco_a" name="endereco_a"><br><br>
+        <label for="enderecoPontaA">Endereço Ponta A:</label>
+        <input type="text" id="enderecoPontaA" name="enderecoPontaA">
 
-        <label for="distancia_a">Distância do enlace entre o POP e Ponta A:</label>
-        <input type="number" id="distancia_a" name="distancia_a"><br><br>
+        <label for="distanciaPontaA">Distância do enlace entre o POP e Ponta A:</label>
+        <input type="number" id="distanciaPontaA" name="distanciaPontaA">
 
-        <label for="abordagem_b">Abordagem - Ponta B:</label>
-        <select id="abordagem_b" name="abordagem_b">
-            <option value="cliente">LANÇAMENTO FEITO PELO CLIENTE</option>
-            <option value="empresa">LANÇAMENTO FEITO PELA EMPRESA</option>
-        </select><br><br>
+        <label for="abordagemB">Abordagem (Ponta B):</label>
+        <select id="abordagemB" name="abordagemB">
+            <option value="LANÇAMENTO FEITO PELO CLIENTE">LANÇAMENTO FEITO PELO CLIENTE</option>
+            <option value="LANÇAMENTO FEITO PELA EMPRESA">LANÇAMENTO FEITO PELA EMPRESA</option>
+        </select>
 
-        <label for="pop_b">POP Ponta B:</label>
-        <input type="text" id="pop_b" name="pop_b"><br><br>
+        <label for="popPontaB">POP Ponta B:</label>
+        <input type="text" id="popPontaB" name="popPontaB">
 
-        <label for="endereco_b">Endereço Ponta B:</label>
-        <input type="text" id="endereco_b" name="endereco_b"><br><br>
+        <label for="enderecoPontaB">Endereço Ponta B:</label>
+        <input type="text" id="enderecoPontaB" name="enderecoPontaB">
 
-        <label for="distancia_b">Distância do enlace entre o POP e Ponta B:</label>
-        <input type="number" id="distancia_b" name="distancia_b"><br><br>
+        <label for="distanciaPontaB">Distância do enlace entre o POP e Ponta B:</label>
+        <input type="number" id="distanciaPontaB" name="distanciaPontaB">
 
-        <label for="abordagem_c">Abordagem (Ponta C):</label>
-        <select id="abordagem_c" name="abordagem_c">
-            <option value="cliente">LANÇAMENTO FEITO PELO CLIENTE</option>
-            <option value="empresa">LANÇAMENTO FEITO PELA EMPRESA</option>
-        </select><br><br>
+        <label for="abordagemC">Abordagem (Ponta C):</label>
+        <select id="abordagemC" name="abordagemC">
+            <option value="LANÇAMENTO FEITO PELO CLIENTE">LANÇAMENTO FEITO PELO CLIENTE</option>
+            <option value="LANÇAMENTO FEITO PELA EMPRESA">LANÇAMENTO FEITO PELA EMPRESA</option>
+        </select>
 
-        <label for="endereco_c">Endereço cliente Ponta C:</label>
-        <input type="text" id="endereco_c" name="endereco_c"><br><br>
+        <label for="popPontaC">POP Ponta C:</label>
+        <input type="text" id="popPontaC" name="popPontaC">
 
-        <label for="pop_c">POP Ponta C:</label>
-        <input type="text" id="pop_c" name="pop_c"><br><br>
+        <label for="enderecoPontaC">Endereço Ponta C:</label>
+        <input type="text" id="enderecoPontaC" name="enderecoPontaC">
 
-        <label for="contato_tecnico">Contato técnico do cliente:</label>
-        <input type="tel" id="contato_tecnico" name="contato_tecnico"><br><br>
+        <label for="contatoTecnicoCliente">Contato técnico do cliente:</label>
+        <input type="tel" id="contatoTecnicoCliente" name="contatoTecnicoCliente">
 
-        <!-- Aqui virá o restante dos campos para migração de serviço, DRE, etc... -->
+        <label for="lastmileAtendimento">Atendimento será feito via Lastmile?</label>
+        <select id="lastmileAtendimento" name="lastmileAtendimento" onchange="toggleSection4()">
+            <option value="NAO">NÃO</option>
+            <option value="SIM">SIM</option>
+        </select>
+    </section>
 
-        <input type="submit" value="Enviar">
-    </form>
+    <!-- SEÇÃO 2: Migração de Serviço / Upgrade / Downgrade -->
+    <section id="section2" class="hidden">
+        <h3>Migração de Serviço / Upgrade / Downgrade</h3>
+
+        <label for="servicoAnterior">Serviço anterior:</label>
+        <input type="text" id="servicoAnterior" name="servicoAnterior">
+
+        <label for="velocidadeAnterior">Velocidade anterior (Mbps):</label>
+        <input type="number" id="velocidadeAnterior" name="velocidadeAnterior">
+
+        <label for="velocidadeAtual">Velocidade atual (Mbps):</label>
+        <input type="number" id="velocidadeAtual" name="velocidadeAtual">
+
+        <label for="valorTicketAnterior">Valor ticket anterior (R$):</label>
+        <input type="text" id="valorTicketAnterior" name="valorTicketAnterior" placeholder="0,00">
+    </section>
+
+    <!-- SEÇÃO 3: DRE -->
+    <section id="section3">
+        <h3>DRE</h3>
+
+        <label for="margemBruta">Margem BRUTA (%):</label>
+        <input type="number" id="margemBruta" name="margemBruta">
+
+        <label for="materialOrcado">Material Orçado - Pré-vendas (R$):</label>
+        <input type="text" id="materialOrcado" name="materialOrcado" placeholder="0,00">
+
+        <label for="maoObraOrcada">Mão de obra Orçado - Pré vendas (R$):</label>
+        <input type="text" id="maoObraOrcada" name="maoObraOrcada" placeholder="0,00">
+
+        <label for="orcamentoTotal">Orçamento Pré Vendas - TOTAL (R$):</label>
+        <input type="text" id="orcamentoTotal" name="orcamentoTotal" placeholder="0,00">
+
+        <label for="fatBruto">Fat. Bruto (R$):</label>
+        <input type="text" id="fatBruto" name="fatBruto" placeholder="0,00">
+
+        <label for="vpl">VPL (R$):</label>
+        <input type="text" id="vpl" name="vpl" placeholder="0,00">
+
+        <label for="ebitda">EBITDA (%):</label>
+        <input type="number" id="ebitda" name="ebitda">
+
+        <label for="tir">TIR (%):</label>
+        <input type="number" id="tir" name="tir">
+
+        <label for="paybackLiquido">Payback Líquido (Em meses):</label>
+        <input type="text" id="paybackLiquido" name="paybackLiquido" placeholder="0,00">
+
+        <label for="paybackPadrao">Payback Padrão (Em meses):</label>
+        <input type="text" id="paybackPadrao" name="paybackPadrao" placeholder="0,00">
+
+        <label for="custoTotalExpansao">Custo total Expansão Orçado (R$):</label>
+        <input type="text" id="custoTotalExpansao" name="custoTotalExpansao" placeholder="0,00">
+
+        <label for="materialExpansaoOrcado">Material Expansão - Orçado (R$):</label>
+        <input type="text" id="materialExpansaoOrcado" name="materialExpansaoOrcado" placeholder="0,00">
+
+        <label for="maoObraExpansaoOrcada">Mão de obra Expansão - Orçado (R$):</label>
+        <input type="text" id="maoObraExpansaoOrcada" name="maoObraExpansaoOrcada" placeholder="0,00">
+
+        <label for="anexo">Anexo (JPG, XLS, DOC, PDF):</label>
+        <input type="file" id="anexo" name="anexo" accept=".jpg,.xls,.doc,.pdf">
+    </section>
+
+    <!-- SEÇÃO 4: AVALIAÇÃO DE LAST MILE -->
+    <section id="section4" class="hidden">
+        <h3>AVALIAÇÃO DE LAST MILE</h3>
+
+        <label for="fornecedorRazaoSocial">Razão Social:</label>
+        <input type="text" id="fornecedorRazaoSocial" name="fornecedorRazaoSocial">
+
+        <label for="fornecedorComercial">Comercial - Tel. - E-mail:</label>
+        <input type="text" id="fornecedorComercial" name="fornecedorComercial">
+
+        <label for="tecnicoInfra">Técnico Infra - Tel. - E-mail:</label>
+        <input type="text" id="tecnicoInfra" name="tecnicoInfra">
+
+        <label for="tecnicoCgr">Técnico CGR - Tel. - E-mail:</label>
+        <input type="text" id="tecnicoCgr" name="tecnicoCgr">
+
+        <label for="enderecoPontaA">ENDEREÇO PONTA A:</label>
+        <input type="text" id="enderecoPontaA" name="enderecoPontaA" placeholder="Logradouro, Num./ Complem., Bairro, Cidade/UF">
+
+        <label for="enderecoPontaB">ENDEREÇO PONTA B:</label>
+        <input type="text" id="enderecoPontaB" name="enderecoPontaB" placeholder="Logradouro, Num./ Complem., Bairro, Cidade/UF">
+
+        <label for="vlanEncapsulamento">Encapsulamento de VLAN Q-in-Q?</label>
+        <select id="vlanEncapsulamento" name="vlanEncapsulamento">
+            <option value="SIM">SIM</option>
+            <option value="NAO">NÃO</option>
+        </select>
+
+        <label for="mtuCapacidade">Capacidade de MTU de 9000 bytes?</label>
+        <select id="mtuCapacidade" name="mtuCapacidade" onchange="toggleMtuField()">
+            <option value="SIM">SIM</option>
+            <option value="NAO">NÃO</option>
+            <option value="Superior a 1500">Superior a 1500</option>
+        </select>
+
+        <label id="mtuSuperiorLabel" for="mtuSuperior" class="hidden">Se Superior a 1500, quantos?</label>
+        <input type="text" id="mtuSuperior" name="mtuSuperior" class="hidden">
+
+        <label for="suporte24h">Suporte 24 horas?</label>
+        <select id="suporte24h" name="suporte24h">
+            <option value="SIM">SIM</option>
+            <option value="NAO">NÃO</option>
+        </select>
+
+        <label for="perdaPacotes">Média de Perda de pacotes mensal inferior a:</label>
+        <select id="perdaPacotes" name="perdaPacotes">
+            <option value="0,01%">0,01%</option>
+            <option value="0,1%">0,1%</option>
+            <option value="1%">1%</option>
+            <option value="Outro">Outro</option>
+        </select>
+
+        <label for="tipoInterface">Tipo de Interface para entrega:</label>
+        <select id="tipoInterface" name="tipoInterface">
+            <option value="Elétrica">Elétrica</option>
+            <option value="Óptica">Óptica</option>
+            <option value="Ambas">Ambas</option>
+        </select>
+
+        <label for="capacidadePorta">Capacidade da porta de entrega:</label>
+        <select id="capacidadePorta" name="capacidadePorta">
+            <option value="100Mbps">100Mbps</option>
+            <option value="1000Mbps">1000Mbps</option>
+            <option value="10Gbps">10Gbps</option>
+        </select>
+
+        <label for="monitoramentoCircuito">Ferramenta para monitoramento do circuito. Ex: Gráficos</label>
+        <select id="monitoramentoCircuito" name="monitoramentoCircuito" onchange="toggleMonitoramentoField()">
+            <option value="NAO">NÃO</option>
+            <option value="SIM">SIM</option>
+        </select>
+
+        <label id="monitoramentoQualLabel" for="monitoramentoQual" class="hidden">Se SIM, Qual?</label>
+        <input type="text" id="monitoramentoQual" name="monitoramentoQual" class="hidden">
+
+        <label for="macTrafegavel">Limite de MAC trafegável no LAST-MILE?</label>
+        <select id="macTrafegavel" name="macTrafegavel" onchange="toggleMacField()">
+            <option value="NAO">NÃO</option>
+            <option value="SIM">SIM</option>
+        </select>
+
+        <label id="macLimiteLabel" for="macLimite" class="hidden">Se SIM, quantos?</label>
+        <input type="text" id="macLimite" name="macLimite" class="hidden">
+
+        <label for="disponibilidadeMensal">Cálculo de disponibilidade mensal?</label>
+        <select id="disponibilidadeMensal" name="disponibilidadeMensal">
+            <option value="99%">99%</option>
+            <option value="99,9%">99,9%</option>
+            <option value="99,99%">99,99%</option>
+            <option value="Outro">Outro</option>
+        </select>
+
+        <label for="escalationList">Escalation List (para escalonamento de chamados)?</label>
+        <select id="escalationList" name="escalationList">
+            <option value="SIM">SIM</option>
+            <option value="NAO">NÃO</option>
+        </select>
+
+        <label for="latenciaMedia">Latência média menor que:</label>
+        <select id="latenciaMedia" name="latenciaMedia">
+            <option value="10ms">10ms</option>
+            <option value="50ms">50ms</option>
+            <option value="100ms">100ms</option>
+            <option value="250ms">250ms</option>
+        </select>
+
+        <label for="restricaoProtocolo">Existe alguma restrição de protocolo que podemos passar na rede?</label>
+        <textarea id="restricaoProtocolo" name="restricaoProtocolo"></textarea>
+
+        <label for="particularidadeRede">Caso exista alguma particularidade quanto à sua rede, descreva abaixo:</label>
+        <textarea id="particularidadeRede" name="particularidadeRede"></textarea>
+    </section>
+
+    <button type="submit">Enviar</button>
+</form>
+
+<script>
+    function toggleSection2() {
+        const atendimento = document.getElementById("atendimento").value;
+        const section2 = document.getElementById("section2");
+        if (atendimento === "Migração de Serviço" || atendimento === "Upgrade" || atendimento === "Downgrade") {
+            section2.classList.remove("hidden");
+        } else {
+            section2.classList.add("hidden");
+        }
+    }
+
+    function toggleSection4() {
+        const lastmileAtendimento = document.getElementById("lastmileAtendimento").value;
+        const section4 = document.getElementById("section4");
+        if (lastmileAtendimento === "SIM") {
+            section4.classList.remove("hidden");
+        } else {
+            section4.classList.add("hidden");
+        }
+    }
+
+    function toggleMtuField() {
+        const mtuCapacidade = document.getElementById("mtuCapacidade").value;
+        const mtuSuperiorField = document.getElementById("mtuSuperior");
+        const mtuSuperiorLabel = document.getElementById("mtuSuperiorLabel");
+        if (mtuCapacidade === "Superior a 1500") {
+            mtuSuperiorField.classList.remove("hidden");
+            mtuSuperiorLabel.classList.remove("hidden");
+        } else {
+            mtuSuperiorField.classList.add("hidden");
+            mtuSuperiorLabel.classList.add("hidden");
+        }
+    }
+
+    function toggleMonitoramentoField() {
+        const monitoramento = document.getElementById("monitoramentoCircuito").value;
+        const monitoramentoField = document.getElementById("monitoramentoQual");
+        const monitoramentoLabel = document.getElementById("monitoramentoQualLabel");
+        if (monitoramento === "SIM") {
+            monitoramentoField.classList.remove("hidden");
+            monitoramentoLabel.classList.remove("hidden");
+        } else {
+            monitoramentoField.classList.add("hidden");
+            monitoramentoLabel.classList.add("hidden");
+        }
+    }
+
+    function toggleMacField() {
+        const macTrafegavel = document.getElementById("macTrafegavel").value;
+        const macField = document.getElementById("macLimite");
+        const macLabel = document.getElementById("macLimiteLabel");
+        if (macTrafegavel === "SIM") {
+            macField.classList.remove("hidden");
+            macLabel.classList.remove("hidden");
+        } else {
+            macField.classList.add("hidden");
+            macLabel.classList.add("hidden");
+        }
+    }
+</script>
+
 </body>
 </html>
